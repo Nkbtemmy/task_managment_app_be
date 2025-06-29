@@ -5,7 +5,6 @@ interface Pagination {
     itemsPerPage: number;
 }
 
-// Extend Express Request interface to include our pagination property.
 declare global {
     namespace Express {
         interface Request {

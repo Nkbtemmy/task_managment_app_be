@@ -15,8 +15,7 @@ export const task = {
             example: {
               title: "Study Math",
               description: "Chapter 4 exercises",
-              deadline: "2025-07-01T10:00:00Z",
-              userId: "abc123-user-id",
+              deadline: "2025-07-01T10:00:00Z"
             },
           },
         },
@@ -29,16 +28,6 @@ export const task = {
       tags: ["Tasks"],
       security: [{ JWT: [] }],
       summary: "Get all tasks (optionally by userId)",
-      parameters: [
-        {
-          name: "userId",
-          in: "query",
-          description: "Filter tasks by user ID",
-          schema: {
-            type: "string",
-          },
-        },
-      ],
       responses,
     },
   },
@@ -85,6 +74,7 @@ export const task = {
               title: "Updated Task Title",
               description: "Updated details...",
               deadline: "2025-07-15T08:00:00Z",
+              isCompleted: true
             },
           },
         },

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { verifyToken } from '../utils/jwt';
 
 interface AuthenticatedRequest extends Request {
   user?: JwtPayload | string;
@@ -17,7 +18,7 @@ export const authenticate = (req: AuthenticatedRequest, res: Response, next: Nex
   }
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const decoded = verifyToken(token);
     req.user = decoded;
     next();
   } catch {
@@ -29,7 +30,7 @@ export const authorize = (roles: string[]) => {
   return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const user = req.user as JwtPayload;
     if (!user || !roles.includes(user.role)) {
-      return res.status(403).json({ error: 'Forbidden: insufficient role' });
+      return res.status(403).json({ error: 'Forbidden: insufficient permission for this role' });
     }
     next();
   };
@@ -37,8 +38,8 @@ export const authorize = (roles: string[]) => {
 
 export const isAdmin = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
   const user = req.user as JwtPayload;
-  if (!user || user.role !== 'admin') {
-    return res.status(403).json({ error: 'Forbidden: admin role required' });
+  if (!user || user.role !== 'ADMIN') {
+    return res.status(403).json({ error: 'Forbidden: administrator role required' });
   }
   next();
 };

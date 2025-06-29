@@ -7,19 +7,28 @@ import {
   deleteTask
 } from '../services/taskService';
 
-export const createTaskController = async (req: Request, res: Response) => {
+export const createTaskController = async (req: Request | any, res: Response) => {
   try {
-    const { title, description, deadline, userId } = req.body;
-    const task = await createTask({ title, description, deadline: new Date(deadline), userId });
+    const userId: string = req.user?.id; // ✅ from JWT middleware
+    const { title, description, deadline } = req.body; // ✅ no userId here
+
+    const task = await createTask({
+      title,
+      description,
+      deadline: new Date(deadline),
+      userId,
+    });
+
     res.status(201).json(task);
   } catch (error: any) {
     res.status(500).json({ error: error.message || 'Failed to create task' });
   }
 };
 
-export const getTasksController = async (req: Request, res: Response) => {
+
+export const getTasksController = async (req: Request | any, res: Response) => {
   try {
-    const { userId } = req.query;
+    const userId = req.user?.id;
     const tasks = await getTasks(userId as string | undefined);
     res.status(200).json(tasks);
   } catch (error: any) {
@@ -32,9 +41,9 @@ export const getTaskByIdController = async (req: Request, res: Response) => {
     const { id } = req.params;
     const task = await getTaskById(id);
     if (!task) return res.status(404).json({ error: 'Task not found' });
-    res.status(200).json(task);
+    return res.status(200).json(task); // ✅ Always return a response
   } catch (error: any) {
-    res.status(500).json({ error: error.message || 'Failed to fetch task' });
+    return res.status(500).json({ error: error.message });
   }
 };
 

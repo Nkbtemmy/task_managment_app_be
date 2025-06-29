@@ -5,8 +5,9 @@ import { resetUserPassword } from './userService';
 import prisma from '../config/prisma';
 
 export const registerUser = async (name: string, email: string, password: string) => {
+    email = email.toLowerCase().trim();
     const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) throw new Error('Email already registered');
+    if (existingUser) throw new Error('User already registered');
 
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -25,6 +26,7 @@ export const registerUser = async (name: string, email: string, password: string
 };
 
 export const loginUser = async (email: string, password: string) => {
+    email = email.toLowerCase().trim();
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) throw new Error('Invalid credentials');
 

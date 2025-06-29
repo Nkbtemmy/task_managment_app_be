@@ -1,0 +1,31 @@
+node_modules
+.env
+dist
+coverage
+.vscode
+.DS_Store
+*.log
+*.tsbuildinfo
+*.tgz
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+*.env.development
+
+
+# Ignore build artifacts
+# Ignore test coverage reports
+coverage/
+# Ignore local environment variables
+.env
+# Ignore IDE specific files
+.vscode/
+# Ignore macOS specific files
+.DS_Store
+# Ignore log files
+*.log
+# Ignore TypeScript build info files
+*.tsbuildinfo
+# Ignore npm package tarballs
+*.tgz 
