@@ -101,13 +101,3 @@ npm run dev
 > Use `Authorization: Bearer <token>` header for all protected routes.
 
 ---
-
-## 📸 Screenshots
-
-_You can add UI screenshots here after design is polished._
-
----
-
-## 📄 License
-
-MIT License © 2025 [Emmanuel N.](https://github.com/nkubito)
