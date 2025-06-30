@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Backend for Study Task Tracker",
   "main": "server.js",
+  "license": "MIT",
   "scripts": {
     "devs": "ts-node-dev --respawn --transpile-only src/server.ts",
     "dev": "nodemon",
