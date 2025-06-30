@@ -7,7 +7,7 @@
     "devs": "ts-node-dev --respawn --transpile-only src/server.ts",
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node build/server.js",
+    "start": "node dist/server.js",
     "clean": "rimraf build",
     "prebuild": "yarn clean",
     "db:migrate": "prisma migrate deploy",
